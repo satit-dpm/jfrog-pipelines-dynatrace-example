@@ -4,4 +4,4 @@ gitRepo:
   branch: master
 
 image:
-  imageName: dpm.jfrog.io/art-docker-dynatrace/demoapp  # <-- replace 'dynatracedemos' with your Artifactory account name
+  imageName: dpmth.jfrog.io/art-docker-dynatrace/demoapp  # <-- replace 'dynatracedemos' with your Artifactory account name
