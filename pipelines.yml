@@ -43,7 +43,7 @@ pipelines:
           DT_TAG_PROJECT: "dynatrace-demos"
           DT_TAG_STAGE: "dev"
           DT_TAG_SERVICE: "demoapp"
-          FEATURE_NUMBER: "1"
+          FEATURE_NUMBER: "2"
 
     steps:
       - name: aDockerBuild
@@ -164,24 +164,6 @@ pipelines:
             - CHART_REPO=${res_demoappHelmChart_repository}
             - add_run_variables CHART=demoapp-${res_demoappHelmChart_version}
             - $res_gitRepo_resourcePath/scripts/updateHelmChartProperties.sh ${JFROG_BASE_URL} ${JFROG_API_KEY} ${CHART_REPO} ${CHART} ${CLUSTER}
-
-      - name: gConfigureDynatrace
-        type: Bash
-        configuration:
-          affinityGroup: Configuration
-          runtime:
-            type: host
-          inputResources:
-            - name: gitRepo
-          integrations:
-            - name: dynatraceIntegration
-          inputSteps:
-            - name: fModifyHelmChartProperties
-        execution:
-          onExecute:
-            - DT_BASEURL=${int_dynatraceIntegration_DT_URL}
-            - DT_API_TOKEN=${int_dynatraceIntegration_DT_API_TOKEN}
-            - docker run -e DT_BASEURL=$DT_BASEURL -e DT_API_TOKEN=$DT_API_TOKEN -e NEW_CLI=1 -v $res_gitRepo_resourcePath:/monaco-mount/ dynatraceace/monaco-runner:release-v1.5.3 "monaco deploy -v --environments /monaco-mount/monaco/environments.yml --project demoapp /monaco-mount/monaco/projects"
 
       - name: hPostDynatraceEvent
         type: Bash
