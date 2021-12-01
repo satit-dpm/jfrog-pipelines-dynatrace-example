@@ -176,7 +176,7 @@ pipelines:
             - name: demoappHelmChart
             - name: demoappDockerImage
           inputSteps:
-            - name: gConfigureDynatrace
+            - name: fModifyHelmChartProperties
         execution:
           onExecute:
             - DT_BASEURL=${int_dynatraceIntegration_DT_URL}
